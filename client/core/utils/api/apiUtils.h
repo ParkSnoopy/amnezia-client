@@ -16,6 +16,12 @@ class SecureAppSettingsRepository;
 namespace apiUtils
 {
     QString getAppLanguageCode(const SecureAppSettingsRepository *appSettingsRepository);
+    QString getDistributionChannel();
+
+    // The gateway may report a country code with a region suffix, e.g. "us-west", while flag
+    // resources are named after the ISO 3166-1 alpha-2 code alone. Returns the part before the dash
+    // in upper case.
+    QString getCountryFlagCode(const QString &serverCountryCode);
 
     bool isSubscriptionExpired(const QString &subscriptionEndDate);
 
@@ -27,7 +33,6 @@ namespace apiUtils
                                                const QNetworkReply::NetworkError &replyError, const int httpStatusCode,
                                                const QByteArray &responseBody);
 
-    QString getPremiumV1VpnKey(const QJsonObject &serverConfigObject);
     QString getPremiumV2VpnKey(const QJsonObject &serverConfigObject);
 }
 
